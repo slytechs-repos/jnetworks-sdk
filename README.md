@@ -1,98 +1,71 @@
-# jnetworks-sdk
+# jNetWorks SDK
 
 [![License](https://img.shields.io/badge/License-Sly%20Technologies-green.svg)](LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.slytechs.jnet.jnetworks/jnetworks-sdk.svg)](https://central.sonatype.com/artifact/com.slytechs.jnet.jnetworks/jnetworks-sdk)
 [![JavaDoc](https://javadoc.io/badge2/com.slytechs.jnet.jnetworks/jnetworks-sdk/javadoc.svg)](https://javadoc.io/doc/com.slytechs.jnet.jnetworks/jnetworks-sdk)
 
-A comprehensive SDK that serves as the parent POM and documentation project for the **JNetworks** suite. It includes full GitHub Wiki pages detailing all aspects of the API. The primary public API is located in the **jnetworks-api** module, with current implementations provided by **jnetworks-pcap**, **jnetworks-ntapi**, and **jnetworks-dpdk** modules.
+Welcome to the **jNetWorks SDK** from Sly Technologies Inc. (www.slytechs.com), your gateway to effortless, high-performance network development. Whether you're building real-time monitoring tools, capturing massive traffic volumes, or analyzing packets with precision, our SDK delivers a unified, hardware-agnostic API that makes complex network tasks feel simple and intuitive. Imagine writing code once and seamlessly switching between software-based solutions or hardware-accelerated powerhouses—no rewrites, no headaches. With three versatile backends tailored to different needs—PCAP for flexible software capture, Intel DPDK for blazing-fast throughput, and Napatech SmartNIC with Link Capture Software (NTAPI) for advanced hardware acceleration—you get the freedom to choose the perfect fit for your project. Dive in and discover why developers love our SDK: it's powerful, scalable, and designed to let you focus on innovation, not integration.
 
 ## Overview
 
-**jnetworks-sdk** is the top-level module of the JNetworks suite, acting as the parent POM and central documentation hub. It integrates all **jnetworks-*** modules into a cohesive SDK, providing extensive documentation through GitHub Wiki pages. The SDK offers a unified interface for network monitoring, packet analysis, and traffic manipulation, abstracting the underlying packet capture engines. Whether you're using Libpcap for general-purpose capture, NTAPI for Napatech hardware acceleration, or DPDK for high-throughput packet processing, **jnetworks-sdk** ensures seamless integration and consistent API usage.
+The **jNetWorks SDK** is a modular Java framework that empowers developers to handle network monitoring, packet capture, transmission, and analysis with unparalleled ease. At its core is a consistent API that abstracts away backend complexities, ensuring your code works flawlessly across environments. Whether you're prototyping on standard hardware or scaling to enterprise-level demands, the SDK supports Linux and Windows, integrates with the Protocol API for deep packet inspection, and scales to handle millions of streams. Backed by Sly Technologies Inc., a leader in network solutions, this SDK is built for reliability, performance, and simplicity—making it the smart choice for modern network applications.
 
 ## Modules
 
-- **jnetworks-api**: The primary public API defining the core interfaces and abstractions.
-- **jnetworks-pcap**: Implementation of the API using Libpcap/Npcap for packet capture.
-- **jnetworks-ntapi**: Implementation using Napatech's NTAPI for hardware-accelerated capture.
-- **jnetworks-dpdk**: Implementation leveraging Intel's DPDK for high-performance packet processing.
+- **jnetworks-api**: The heart of the SDK, providing the unified API for seamless operations across all backends.
+- **jnetworks-pcap**: Leverages Libpcap/Npcap for versatile, software-driven packet handling—perfect for broad compatibility and massive scalability.
+- **jnetworks-dpdk**: Harnesses Intel DPDK for ultra-high-speed processing, ideal for demanding, low-latency scenarios.
+- **jnetworks-ntapi**: Utilizes Napatech SmartNIC with Link Capture Software (NTAPI) for hardware-accelerated features like precise timestamping.
+- **protocol-tcpip**: A companion module for effortless packet header analysis, integrating smoothly for real-time insights.
 
 ## Features
 
-### Core Functionality:
-
-- **Unified API**: Interact with different packet capture engines using a consistent interface defined in **jnetworks-api**.
-- **High-Performance Packet Capture**: Support for line-rate packet capture with minimal CPU usage.
-- **Advanced Filtering**: Manage complex packet filters across different backends.
-- **Real-Time Monitoring**: Monitor network traffic in real-time with precise timestamping.
-- **Statistics Collection**: Gather detailed statistics per adapter, port, and queue.
-- **Time Synchronization**: Synchronize time using PTP or other supported methods.
-- **Hardware Timestamping**: Achieve high-precision timestamping with supported hardware.
-- **Zero-Copy Transmission**: Send and receive packets efficiently with zero-copy mechanisms.
-- **Multi-Stream and Multi-Queue Support**: Capture and process multiple data streams or queues simultaneously.
-- **Alarm and Event Handling**: Monitor hardware alarms and events from supported adapters.
-- **Hardware Offloading**: Leverage hardware-based features like checksum offloading and RSS.
-- **NUMA Awareness**: Optimize performance on multi-socket systems.
-- **Cross-Platform Support**: Compatible with Linux, Windows, and other supported operating systems.
-- **Ease of Integration**: Simplify application development with a high-level API.
-
-### Supported Backends:
-
-- **jnetworks-pcap**: For general-purpose packet capture using Libpcap/Npcap.
-- **jnetworks-ntapi**: For Napatech hardware acceleration using NTAPI.
-- **jnetworks-dpdk**: For high-throughput packet processing using Intel DPDK.
+- **Unified API for Effortless Development**: One intuitive interface to rule them all—capture, transmit, filter, and analyze without backend-specific tweaks.
+- **Three Backends, Endless Possibilities**: Choose PCAP for everyday flexibility, DPDK for performance extremes, or NTAPI for hardware precision, all with the same easy API.
+- **High-Performance at Scale**: Achieve line-rate capture and transmission, with support for zero-copy efficiency, hash-based load balancing, and dynamic traffic assignment.
+- **Real-Time Adaptability**: Apply filters, assignments, and configurations on the fly, even mid-session, for responsive network management.
+- **Advanced Analysis Integration**: Pair with the Protocol API to inspect protocols like Ethernet, IP, TCP, and VLAN with zero-copy speed.
+- **Structured Concurrency**: Harness Java's virtual threads for parallel processing of streams and buffers, tested to handle 1 million streams effortlessly.
+- **Cross-Platform Versatility**: Run smoothly on Linux and Windows, supporting a wide range of adapters from standard NICs to specialized hardware.
+- **Extensible and Future-Proof**: Easily add custom file formats or backends, with built-in discovery for evolving needs.
 
 ## Capability Comparison Table
 
-Below is a comparison of the capabilities supported by each backend integrated within **jnetworks-sdk**:
+Here's how our three backends stack up, giving you the tools to match your exact requirements:
 
-| **Capability**                           | **Libpcap** | **NTAPI** | **DPDK** |
-|------------------------------------------|-------------|-----------|----------|
-| High-performance packet capture          | Yes         | Yes       | Yes      |
-| Advanced filtering                       | Yes         | Yes       | Yes      |
-| Real-time monitoring                     | Yes         | Yes       | Yes      |
-| Statistics collection                    | Yes         | Yes       | Yes      |
-| Time synchronization                     |             | Yes       | Yes      |
-| Hardware timestamping                    |             | Yes       | Yes      |
-| Zero-copy transmission                   |             | Yes       | Yes      |
-| Multi-stream capture                     |             | Yes       | Yes      |
-| Alarm and event handling                 |             | Yes       | Yes      |
-| Hardware offloading                      |             | Yes       | Yes      |
-| Multi-queue support                      |             | Yes       | Yes      |
-| NUMA awareness                           |             | Yes       | Yes      |
-| Memory management                        |             | Yes       | Yes      |
-| Virtualization support                   | Yes         | Yes       | Yes      |
-| Hardware acceleration                    |             | Yes       | Yes      |
-| Support for hardware NICs                | Yes         | Yes       | Yes      |
-| Software-based capture                   | Yes         |           |          |
-| Cross-platform support                   | Yes         | Yes       | Yes      |
-| Ease of integration                      | Yes         | Yes       |          |
-| Support for multi-threading              | Limited     | Yes       | Yes      |
+| **Capability**                     | **PCAP** | **DPDK** | **NTAPI** |
+|------------------------------------|----------|----------|-----------|
+| High-performance packet capture    | Yes      | Yes      | Yes       |
+| Advanced filtering                 | Yes      | Yes      | Yes       |
+| Real-time monitoring               | Yes      | Yes      | Yes       |
+| Statistics collection              | Yes      | Yes      | Yes       |
+| Time synchronization               |          | Yes      | Yes       |
+| Hardware timestamping              |          | Yes      | Yes       |
+| Zero-copy transmission             |          | Yes      | Yes       |
+| Multi-stream capture               | Yes      | Yes      | Yes       |
+| Hash-based distribution            | Yes      | Yes      | Yes       |
+| Scalability (e.g., 1M streams)     | Yes      | Limited  | Limited   |
+| Hardware offloading                |          | Yes      | Yes       |
+| Multi-queue support                |          | Yes      | Yes       |
 
 ## Documentation
 
-- **GitHub Wiki**: Comprehensive documentation is available on our [GitHub Wiki pages](https://github.com/slytechs-repos/jnetworks-sdk/wiki), covering all aspects of the API, usage examples, and advanced topics.
-- **API Documentation**: Detailed API references are provided through JavaDoc for each module.
+- **GitHub Wiki**: Your complete guide to everything jNetWorks, from getting started to advanced topics: [jNetWorks SDK Wiki](https://github.com/slytechs-repos/jnetworks-sdk/wiki).
+- **API Documentation**: Explore detailed JavaDoc for intuitive reference: [JavaDoc](https://javadoc.io/doc/com.slytechs.jnet.jnetworks/jnetworks-sdk).
 
 ## Requirements
 
-- **JDK 21 LTS** or later.
-- **Backend-specific requirements**:
-  - **jnetworks-pcap**:
-    - **Linux**: libpcap installed.
-    - **Windows**: Npcap installed.
-  - **jnetworks-ntapi**:
-    - **Napatech NTAPI SDK** installed.
-    - **Compatible Napatech Network Adapter Hardware**.
-  - **jnetworks-dpdk**:
-    - **Intel DPDK** installed and configured.
-    - **Compatible Network Adapter Hardware** (e.g., Intel, Mellanox NICs supported by DPDK).
+- **JDK 22** or later, leveraging the permanent Foreign Function API for seamless native integration.
+- **Backend-Specific Needs**:
+  - **PCAP**: Libpcap on Linux or Npcap on Windows.
+  - **DPDK**: Intel DPDK setup with compatible NICs.
+  - **NTAPI**: Napatech Link Capture Software and SmartNIC hardware.
 
 ## Installation
 
 ### Maven
 
-Include the SDK parent POM in your project to manage dependencies:
+Set the SDK as your parent POM for easy dependency management:
 
 ```xml
 <parent>
@@ -102,21 +75,18 @@ Include the SDK parent POM in your project to manage dependencies:
 </parent>
 ```
 
-To use the API and specific implementations, include dependencies for **jnetworks-api** and the desired backend(s):
+Add the API and your chosen backend:
 
 ```xml
 <dependencies>
-    <!-- Include the API module -->
     <dependency>
         <groupId>com.slytechs.jnet.jnetworks</groupId>
         <artifactId>jnetworks-api</artifactId>
         <version>1.0.0</version>
     </dependency>
-    
-    <!-- Include the desired backend implementation -->
     <dependency>
         <groupId>com.slytechs.jnet.jnetworks</groupId>
-        <artifactId>jnetworks-pcap</artifactId>
+        <artifactId>jnetworks-pcap</artifactId> <!-- Or -dpdk, -ntapi -->
         <version>1.0.0</version>
     </dependency>
 </dependencies>
@@ -126,49 +96,22 @@ To use the API and specific implementations, include dependencies for **jnetwork
 
 ```groovy
 implementation 'com.slytechs.jnet.jnetworks:jnetworks-api:1.0.0'
-implementation 'com.slytechs.jnet.jnetworks:jnetworks-pcap:1.0.0' // or ntapi/dpdk
+implementation 'com.slytechs.jnet.jnetworks:jnetworks-pcap:1.0.0' // Or -dpdk, -ntapi
 ```
 
 ## Quick Start
 
+Get up and running in minutes with this simple capture example—highlighting the SDK's straightforward API:
+
 ```java
-// Use the primary public API from jnetworks-api
-import com.slytechs.jnet.jnetworks.api.*;
-
-public class NetworkApp {
-    public static void main(String[] args) {
-        // Choose backend implementation (e.g., PcapFramework)
-        try (NetworkFramework framework = new PcapFramework()) {
-            framework.initialize();
-
-            // Configure network interface
-            ConfigManager config = framework.createConfigManager();
-            InterfaceConfig ifaceConfig = config.getInterfaceConfig();
-            ifaceConfig.setInterfaceEnabled("eth0", true); // Enable interface eth0
-
-            // Set up packet filter
-            FilterConfig filter = config.getFilterConfig();
-            filter.setFilterExpression("tcp port 80"); // Capture HTTP traffic
-
-            // Capture packets
-            try (NetCapture capture = framework.createNetCapture()) {
-                // Set up packet handler
-                capture.setPacketHandler(packet -> {
-                    System.out.printf("Received packet: length=%d%n", packet.getLength());
-                });
-
-                capture.startCapture();
-
-                // Wait for packets
-                Thread.sleep(10000);  // Capture for 10 seconds
-
-                // Get statistics
-                StatisticsManager stats = framework.createStatisticsManager();
-                InterfaceStats ifaceStats = stats.getInterfaceStats();
-                System.out.printf("Packets received: %d%n", ifaceStats.getRxPacketCount("eth0"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+try (NetWorks networks = new PcapWorks()) { // Swap to DpdkWorks or NtapiWorks effortlessly
+    PacketStream stream = networks.createRxStream("rx-stream");
+    try (Capture capture = networks.openCapture("analyzer", "tcp", stream)) {
+        capture.shutdownAfter(Duration.ofSeconds(10));
+        while (stream.isActive()) {
+            Packet packet = stream.take();
+            // Analyze or process packet here
+            stream.release(packet);
         }
     }
 }
@@ -176,45 +119,7 @@ public class NetworkApp {
 
 ## Advanced Usage
 
-### Accessing Documentation
-
-- Visit the **GitHub Wiki** for detailed guides, API documentation, and usage examples: [JNetworks SDK Wiki](https://github.com/slytechs-repos/jnetworks-sdk/wiki).
-
-### Selecting a Backend at Runtime
-
-```java
-// Use a factory or configuration to select the backend
-String backendType = "DPDK"; // Could be "Pcap", "NTAPI", or "DPDK"
-
-NetworkFramework framework;
-switch (backendType) {
-    case "Pcap":
-        framework = new PcapFramework();
-        break;
-    case "NTAPI":
-        framework = new NtapiFramework();
-        break;
-    case "DPDK":
-        framework = new DpdkFramework(new String[]{"--file-prefix", "jnet_dpdk"});
-        break;
-    default:
-        throw new IllegalArgumentException("Unsupported backend type");
-}
-
-framework.initialize();
-// Proceed with common API usage
-```
-
-### Utilizing Backend-Specific Features
-
-```java
-if (framework instanceof NtapiFramework) {
-    NtapiFramework ntapiFramework = (NtapiFramework) framework;
-    // Access NTAPI-specific methods
-    NtapiConfig ntapiConfig = ntapiFramework.getNtapiConfig();
-    ntapiConfig.enableHardwareTimestamping(true);
-}
-```
+Explore dynamic configurations, multi-stream setups, or backend-specific optimizations through our Wiki—keeping your code clean and portable.
 
 ## Building from Source
 
@@ -226,54 +131,34 @@ mvn clean install
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+Join us in shaping the future! Check our [Contributing Guidelines](CONTRIBUTING.md).
 
 ## License
 
 ### Free License
 
-- **Non-redistributing use**
-- **Limited to 1-5 system installs**
-- **Can be used in internal products**
-- Perfect for:
-  - Personal use
-  - Internal development
-  - Prototyping
-  - Demonstrations
-  - Evaluations
+- **Non-redistributing use** limited to 1-5 system installs.
+- Ideal for personal projects, internal development, prototyping, demonstrations, and evaluations.
+- Use it in your internal products without redistribution.
 
 ### OEM Internal-Use License (Paid)
 
-- **Perpetual license** (never expires)
-- Supports **100 to unlimited system installs**
-- Includes:
-  - Full OEM support
-  - Pro features
-- Ideal for larger internal deployments
+- **Perpetual** (never expires) with 100+ to unlimited system installs.
+- Includes full OEM support and pro features for larger internal deployments.
 
 ### OEM Redistributing License (Paid)
 
-- Available as **perpetual or term licenses**
-- **No-royalty model**
-- **Unlimited system installs**
-- Includes:
-  - Distribution rights
-  - No asset tracking required
-  - No reporting requirements
+- **Perpetual or term-based**, no-royalty, unlimited installs.
+- Flexible distribution without tracking or reporting—simplifying your business.
 
-For commercial licensing options and pricing, please contact:
-
-- **Website**: [slytechs.com](http://slytechs.com)
-- **Email**: [sales@slytechs.com](mailto:sales@slytechs.com)
+For demos or more free installs during evaluation, contact sales. Visit [www.slytechs.com](http://www.slytechs.com) or email [sales@slytechs.com](mailto:sales@slytechs.com) for details.
 
 ## Support
 
-- **Issue Tracker**: [https://github.com/slytechs-repos/jnetworks-sdk/issues](https://github.com/slytechs-repos/jnetworks-sdk/issues)
-- **API Documentation**: [https://javadoc.io/doc/com.slytechs.jnet.jnetworks/jnetworks-sdk](https://javadoc.io/doc/com.slytechs.jnet.jnetworks/jnetworks-sdk)
-- **Examples**: [https://github.com/slytechs-repos/jnetworks-sdk/tree/main/examples](https://github.com/slytechs-repos/jnetworks-sdk/tree/main/examples)
-- **GitHub Wiki**: [https://github.com/slytechs-repos/jnetworks-sdk/wiki](https://github.com/slytechs-repos/jnetworks-sdk/wiki)
-- **Commercial Support**: [http://slytechs.com/support](http://slytechs.com/support)
+- **Issue Tracker**: [GitHub Issues](https://github.com/slytechs-repos/jnetworks-sdk/issues)
+- **API Documentation**: [JavaDoc](https://javadoc.io/doc/com.slytechs.jnet.jnetworks/jnetworks-sdk)
+- **Examples**: [GitHub Examples](https://github.com/slytechs-repos/jnetworks-sdk/tree/main/examples)
+- **GitHub Wiki**: [Wiki](https://github.com/slytechs-repos/jnetworks-sdk/wiki)
+- **Commercial Support**: [slytechs.com/support](http://slytechs.com/support)
 
----
-
-Feel free to explore the **jnetworks-sdk** module, utilize the extensive documentation available on our GitHub Wiki, and leverage the power of multiple backends for your network applications using the familiar JNetworks API. If you have any questions or need assistance, our support channels are always open!
+Unlock the potential of your network applications with the jNetWorks SDK—easy, powerful, and ready for anything. From Sly Technologies Inc., we're here to make your development journey exciting and successful!
