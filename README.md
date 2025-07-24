@@ -33,20 +33,37 @@ The **jNetWorks SDK** is a modular Java framework that empowers developers to ha
 
 Here's how our three backends stack up, giving you the tools to match your exact requirements:
 
-| **Capability**                     | **PCAP** | **DPDK** | **NTAPI** |
-|------------------------------------|----------|----------|-----------|
-| High-performance packet capture    | Yes      | Yes      | Yes       |
-| Advanced filtering                 | Yes      | Yes      | Yes       |
-| Real-time monitoring               | Yes      | Yes      | Yes       |
-| Statistics collection              | Yes      | Yes      | Yes       |
-| Time synchronization               |          | Yes      | Yes       |
-| Hardware timestamping              |          | Yes      | Yes       |
-| Zero-copy transmission             |          | Yes      | Yes       |
-| Multi-stream capture               | Yes      | Yes      | Yes       |
-| Hash-based distribution            | Yes      | Yes      | Yes       |
-| Scalability (e.g., 1M streams)     | Yes      | Limited  | Limited   |
-| Hardware offloading                |          | Yes      | Yes       |
-| Multi-queue support                |          | Yes      | Yes       |
+| **Capability**                          | **PCAP** | **DPDK** | **NTAPI** |
+|-----------------------------------------|----------|----------|-----------|
+| High-performance packet capture         | Yes      | Yes      | Yes       |
+| Advanced filtering                      | Yes      | Yes      | Yes       |
+| Real-time monitoring                    | Yes      | Yes      | Yes       |
+| Statistics collection                   | Yes      | Yes      | Yes       |
+| Time synchronization                    |          | Yes      | Yes       |
+| Hardware timestamping                   |          | Yes      | Yes       |
+| Zero-copy transmission                  |          | Yes      | Yes       |
+| Multi-stream capture                    | Yes      | Yes      | Yes       |
+| Hash-based distribution                 | Yes      | Yes      | Yes       |
+| Scalability (e.g., 1M streams)          | Yes      | Limited  | Limited   |
+| Hardware offloading                     |          | Yes      | Yes       |
+| Multi-queue support                     |          | Yes      | Yes       |
+| Deduplication                           | No       | Yes      | Yes       |
+| Port virtualization                     | Yes      | Yes      | Yes       |
+| Port merging                            | No       | Yes      | Yes       |
+| Adapter merging                         | No       | Yes      | Yes       |
+| Packet replay                           | Yes      | Yes      | Yes       |
+| Traffic generation                      | Yes      | Yes      | Yes       |
+| Flow matching                           | Yes      | Yes      | Yes       |
+| Timestamp injection                     | No       | Yes      | Yes       |
+| Synchronized transmit                   | No       | Yes      | Yes       |
+| IEEE 1588 PTP support                   | No       | Yes      | Yes       |
+| PPS support                             | No       | Yes      | Yes       |
+| NUMA awareness                          | No       | Yes      | Yes       |
+| Inline processing                       | No       | Yes      | Yes       |
+| Alarm and event handling                | Limited  | Yes      | Yes       |
+| Virtualization support                  | Yes      | Yes      | Yes       |
+| Multi-threading support                 | Yes      | Yes      | Yes       |
+| Cross-platform support                  | Yes      | Yes      | Yes       |
 
 ## Documentation
 
