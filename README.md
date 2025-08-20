@@ -46,7 +46,7 @@ A comprehensive SDK that serves as the parent POM and documentation project for 
 
 Below is a comparison of the capabilities supported by each backend integrated within **jnetworks-sdk**:
 
-| **Capability**                           | **Libpcap** | **NTAPI** | **DPDK** |
+| **Capability**                           | **PCAP** | **NTAPI** | **DPDK** |
 |------------------------------------------|-------------|-----------|----------|
 | High-performance packet capture          | Yes         | Yes       | Yes      |
 | Advanced filtering                       | Yes         | Yes       | Yes      |
@@ -137,39 +137,40 @@ import com.slytechs.jnet.jnetworks.api.*;
 
 public class NetworkApp {
     public static void main(String[] args) {
-        // Choose backend implementation (e.g., PcapFramework)
-        try (NetworkFramework framework = new PcapFramework()) {
-            framework.initialize();
+        // Choose backend implementation (e.g., PcapWorks)
+        try (NetWorks networks = new PcapWorks()) {
+		  PacketStream stream = networks.createRxStream("rx-stream"");
 
-            // Configure network interface
-            ConfigManager config = framework.createConfigManager();
-            InterfaceConfig ifaceConfig = config.getInterfaceConfig();
-            ifaceConfig.setInterfaceEnabled("eth0", true); // Enable interface eth0
-
-            // Set up packet filter
-            FilterConfig filter = config.getFilterConfig();
-            filter.setFilterExpression("tcp port 80"); // Capture HTTP traffic
-
-            // Capture packets
-            try (NetCapture capture = framework.createNetCapture()) {
-                // Set up packet handler
-                capture.setPacketHandler(packet -> {
-                    System.out.printf("Received packet: length=%d%n", packet.getLength());
-                });
-
-                capture.startCapture();
-
-                // Wait for packets
-                Thread.sleep(10000);  // Capture for 10 seconds
-
-                // Get statistics
-                StatisticsManager stats = framework.createStatisticsManager();
-                InterfaceStats ifaceStats = stats.getInterfaceStats();
-                System.out.printf("Packets received: %d%n", ifaceStats.getRxPacketCount("eth0"));
+            // Capture packets, assign all traffic to our 'rx-stream' PacketStream
+            try (Capture capture = networks.openCapture("all", stream)) {
+            
+            	// Create reusable network headers for ethernet and IPv4
+               Ethernet ethernet = new Ethernet();
+               Ip4 ip4 = new Ip4();
+               
+               // Capture packets for 5 minutes
+               capture.shutdownAfter(Duration.ofMinutes(5));
+               
+               // Capture while session alive until shutdown
+		     while(stream.isAlive()) {
+		     	// Take 1 packet from the stream
+				Packet packet = stream.take();
+		         
+		         // Analyze packet headers
+		         if (packet.hasHeader(ethernet))
+		         		System.out.println("Ethernet type=" + ethernet.type());
+		         		
+		         	if (packet.hasHeader(ip4))
+		         		System.out.println("Ip version=" + ip4.version());
+		         
+		         // When done release the packet back to the stream
+		         stream.release(packet);
+		         
+		         // In order to keep the packet outside of the take/release scope,
+		         // You have to copy or clone the packet with Packet.clone()
+		     }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } 
     }
 }
 ```
@@ -180,53 +181,6 @@ public class NetworkApp {
 
 - Visit the **GitHub Wiki** for detailed guides, API documentation, and usage examples: [JNetworks SDK Wiki](https://github.com/slytechs-repos/jnetworks-sdk/wiki).
 
-### Selecting a Backend at Runtime
-
-```java
-// Use a factory or configuration to select the backend
-String backendType = "DPDK"; // Could be "Pcap", "NTAPI", or "DPDK"
-
-NetworkFramework framework;
-switch (backendType) {
-    case "Pcap":
-        framework = new PcapFramework();
-        break;
-    case "NTAPI":
-        framework = new NtapiFramework();
-        break;
-    case "DPDK":
-        framework = new DpdkFramework(new String[]{"--file-prefix", "jnet_dpdk"});
-        break;
-    default:
-        throw new IllegalArgumentException("Unsupported backend type");
-}
-
-framework.initialize();
-// Proceed with common API usage
-```
-
-### Utilizing Backend-Specific Features
-
-```java
-if (framework instanceof NtapiFramework) {
-    NtapiFramework ntapiFramework = (NtapiFramework) framework;
-    // Access NTAPI-specific methods
-    NtapiConfig ntapiConfig = ntapiFramework.getNtapiConfig();
-    ntapiConfig.enableHardwareTimestamping(true);
-}
-```
-
-## Building from Source
-
-```bash
-git clone https://github.com/slytechs-repos/jnetworks-sdk
-cd jnetworks-sdk
-mvn clean install
-```
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 ## License
 

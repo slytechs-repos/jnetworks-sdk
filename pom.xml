@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.slytechs.jnet.jnetworks</groupId>
+    <artifactId>jnetworks-sdk-parent</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>jNetWorks SDK Parent</name>
+    <description>Parent POM for the jNetWorks Software Development Kit, a high-performance Java framework for network packet capture, transmission, and monitoring.</description>
+    <url>https://www.slytechs.com/jnetworks</url>
+
+    <organization>
+        <name>Sly Technologies Inc.</name>
+        <url>https://www.slytechs.com</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Sly Technologies Free License</name>
+            <url>http://www.slytechs.com/free-license-text</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <modules>
+        <module>../jnetworks-api</module>
+        <module>../jnetworks-dpdk</module>
+<!--        <module>../jnetworks-pcap</module>-->
+<!--        <module>../jnetworks-ntapi</module>-->
+<!--        <module>../jnetworks-examples</module>-->
+    </modules>
+
+    <properties>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Dependency versions -->
+        <java.version>22</java.version>
+        <junit.version>5.11.0</junit.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <logback.version>1.5.8</logback.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <jmh.version>1.37</jmh.version>
+        
+        <core.sdk.version>0.1.0-SNAPSHOT</core.sdk.version>
+        <protocol.sdk.version>0.1.0-SNAPSHOT</protocol.sdk.version>
+        <dpdk.sdk.version>0.1.0-SNAPSHOT</dpdk.sdk.version>
+
+        <!-- Plugin versions -->
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <maven-javadoc-plugin.version>3.7.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-gpg-plugin.version>3.2.4</maven-gpg-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+			<!-- Internal module dependencies -->
+			<dependency>
+			    <groupId>com.slytechs.jnet.core</groupId>
+			    <artifactId>core-api</artifactId>
+			    <version>${core.sdk.version}</version>
+			</dependency>
+          <dependency>
+                <groupId>com.slytechs.jnet.jnetworks</groupId>
+                <artifactId>jnetworks-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.slytechs.jnet.jnetworks</groupId>
+                <artifactId>jnetworks-dpdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.slytechs.jnet.jnetworks</groupId>
+                <artifactId>jnetworks-pcap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.slytechs.jnet.jnetworks</groupId>
+                <artifactId>jnetworks-ntapi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.slytechs.jnet.protocol</groupId>
+                <artifactId>protocol-api</artifactId>
+                <version>${protocol.sdk.version}</version>
+            </dependency>
+           <dependency>
+                <groupId>com.slytechs.jnet.protocol</groupId>
+                <artifactId>protocol-tcpip</artifactId>
+                <version>${protocol.sdk.version}</version>
+            </dependency>
+
+           <dependency>
+                <groupId>com.slytechs.jnet.jnetdpdk</groupId>
+                <artifactId>jnetdpdk-api</artifactId>
+                <version>${dpdk.sdk.version}</version>
+            </dependency>
+
+			<!-- Testing dependencies -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <release>${java.version}</release>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <argLine>--enable-preview</argLine>
+                    </configuration>
+                </plugin>
+		        <plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+		            <artifactId>maven-javadoc-plugin</artifactId>
+		            <version>3.7.0</version>
+		            <configuration>
+                        <source>${maven.compiler.source}</source>
+		                <failOnError>true</failOnError>
+		            </configuration>
+		            <executions>
+		                <execution>
+		                    <id>attach-javadocs</id>
+		                    <goals>
+		                        <goal>jar</goal>
+		                    </goals>
+		                </execution>
+		            </executions>
+		        </plugin>                
+		        <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    
+	<profiles>
+	    <profile>
+	        <id>benchmark</id>
+	        <activation>
+	            <activeByDefault>false</activeByDefault>
+	        </activation>
+	        <dependencies>
+	            <dependency>
+	                <groupId>org.openjdk.jmh</groupId>
+	                <artifactId>jmh-core</artifactId>
+	            </dependency>
+	            <dependency>
+	                <groupId>org.openjdk.jmh</groupId>
+	                <artifactId>jmh-generator-annprocess</artifactId>
+	                <scope>provided</scope>
+	            </dependency>
+	        </dependencies>
+	        <build>
+	            <plugins>
+	                <!-- Adds benchmark source directory -->
+	                <plugin>
+	                    <groupId>org.codehaus.mojo</groupId>
+	                    <artifactId>build-helper-maven-plugin</artifactId>
+	                    <version>3.4.0</version>
+	                    <executions>
+	                        <execution>
+	                            <id>add-benchmark-source</id>
+	                            <phase>generate-sources</phase>
+	                            <goals>
+	                                <goal>add-source</goal>
+	                            </goals>
+	                            <configuration>
+	                                <sources>
+	                                    <source>src/benchmark/java</source>
+	                                </sources>
+	                            </configuration>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	
+	                <!-- Compiler plugin with annotation processor -->
+	                <plugin>
+	                    <groupId>org.apache.maven.plugins</groupId>
+	                    <artifactId>maven-compiler-plugin</artifactId>
+	                    <executions>
+	                        <execution>
+	                            <id>compile-benchmark</id>
+	                            <phase>compile</phase>
+	                            <goals>
+	                                <goal>compile</goal>
+	                            </goals>
+	                            <configuration>
+	                                <annotationProcessorPaths>
+	                                    <path>
+	                                        <groupId>org.openjdk.jmh</groupId>
+	                                        <artifactId>jmh-generator-annprocess</artifactId>
+	                                        <version>1.37</version>
+	                                    </path>
+	                                </annotationProcessorPaths>
+	                            </configuration>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	            </plugins>
+	        </build>
+	    </profile>
+	</profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+</project>
