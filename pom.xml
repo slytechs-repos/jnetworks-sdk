@@ -4,72 +4,47 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.slytechs.jnet</groupId>
-        <artifactId>jnet-sdk-parent</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
-        <relativePath>../jnet-sdk/pom.xml</relativePath>
-    </parent>
-
-    <groupId>com.slytechs.jnet.jnetworks</groupId>
-    <artifactId>jnetworks-sdk-parent</artifactId>
+    <groupId>com.slytechs.sdk</groupId>
+    <artifactId>jnetworks-sdk</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>jNetWorks SDK - Parent POM</name>
-    <description>Parent POM for the jNetWorks Software Development Kit, a high-performance Java framework for network packet capture, transmission, and monitoring.</description>
-    <url>https://www.slytechs.com/jnetworks</url>
+    <name>jNetWorks SDK</name>
+    <description>Starter POM for jNetWorks SDK - high-performance network packet capture supporting libpcap, DPDK, and Napatech backends.</description>
+    <url>https://www.slytechs.com</url>
 
-    <modules>
-        <module>../jnetworks-api</module>
-<!--        <module>../jnetworks-dpdk</module>-->
-        <!-- <module>../jnetworks-pcap</module> -->
-        <!-- <module>../jnetworks-ntapi</module> -->
-        <!-- <module>../jnetworks-examples</module> -->
-    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Internal module dependencies -->
             <dependency>
-                <groupId>com.slytechs.jnet.core</groupId>
-                <artifactId>core-api</artifactId>
-                <version>${core-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.jnetworks</groupId>
-                <artifactId>jnetworks-api</artifactId>
-                <version>${jnetworks-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.jnetworks</groupId>
-                <artifactId>jnetworks-dpdk</artifactId>
-                <version>${jnetworks-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.jnetworks</groupId>
-                <artifactId>jnetworks-pcap</artifactId>
-                <version>${jnetworks-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.jnetworks</groupId>
-                <artifactId>jnetworks-ntapi</artifactId>
-                <version>${jnetworks-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.protocol</groupId>
-                <artifactId>protocol-api</artifactId>
-                <version>${protocol-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.protocol</groupId>
-                <artifactId>protocol-tcpip</artifactId>
-                <version>${protocol-sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.slytechs.jnet.jnetdpdk</groupId>
-                <artifactId>jnetdpdk-api</artifactId>
-                <version>${jnetdpdk-sdk.version}</version>
+                <groupId>com.slytechs.sdk</groupId>
+                <artifactId>sdk-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>jnetworks-api</artifactId>
+        </dependency>
+        <dependency> 
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>sdk-protocol-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>sdk-protocol-tcpip</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>jnetworks-pcap</artifactId>
+        </dependency>
+    </dependencies>
 </project>
