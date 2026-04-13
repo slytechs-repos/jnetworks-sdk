@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        Convenience umbrella with no code of its own.
+        Pulling in this single dependency gives consumers the full
+        jNetWorks OSS stack (API + libpcap backend).
+
+        Additional high-performance backends are available at
+        https://www.slytechs.com/products
+    -->
+    <parent>
+        <groupId>com.slytechs.sdk</groupId>
+        <artifactId>sdk-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../sdk-parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>jnetworks-sdk</artifactId>
+    <packaging>pom</packaging>
+
+    <name>jNetWorks SDK</name>
+    <description>Convenience umbrella for the jNetWorks OSS SDK. Pulls in the
+        high-level API and the libpcap backend. Commercial backends (DPDK, Napatech)
+        are available separately from maven.slytechs.com.</description>
+    <url>https://github.com/slytechs-repos/jnetworks-sdk</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/slytechs-repos/jnetworks-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com:slytechs-repos/jnetworks-sdk.git</developerConnection>
+        <url>https://github.com/slytechs-repos/jnetworks-sdk</url>
+    </scm>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.slytechs.sdk</groupId>
+                <artifactId>sdk-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- OSS dependencies always included -->
+    <dependencies>
+        <dependency>
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>jnetworks-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>jnetworks-pcap</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
